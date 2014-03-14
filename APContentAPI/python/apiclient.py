@@ -6,10 +6,7 @@ def main():
 
     # sign up for developer key at http://developer.ap.org/
     apikey = '** your API key **' 
-    
     keyword_search = 'star wars'
-
-    url = 'http://api.ap.org/v2/search/photo'
 
     payload = requests.get('http://api.ap.org/v2/search/photo',
                            headers={'accept': 'application/json'},
