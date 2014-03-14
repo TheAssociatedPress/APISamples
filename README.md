@@ -35,8 +35,6 @@ import requests
 apikey = 'my_api_key'
 keyword_search = 'star wars'
 
-url = 'http://api.ap.org/v2/search/photo'
-
 payload = requests.get('http://api.ap.org/v2/search/photo',
                        headers={'accept': 'application/json'},
                        params={'apikey': apikey, 'q': keyword_search})
