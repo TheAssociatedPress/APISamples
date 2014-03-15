@@ -1,0 +1,14 @@
+{
+  "name": "contentapinodejs",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "*",
+    "jade": "*",
+    "stylus": "*",
+	"request": "*"
+  },
+  "engines": {
+    "node": "0.10.17",
+    "npm": "1.3.x"
+  }
+}
