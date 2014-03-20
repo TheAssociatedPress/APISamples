@@ -1,4 +1,5 @@
 var searchText = "";
+var apiKey = "your_api_key";
         var myapp = angular.module("myapp", ['ngSanitize'])
             .controller("Search", function ($scope, $http, $location) {
                 //defaults
@@ -12,7 +13,7 @@ var searchText = "";
                 //Search
                 function doSearch() {
                     searchText = $scope.searchText;
-                    var url = "http://api.ap.org/v2/search/" + $scope.mediaType + "?apikey=your_api_key&q=" + $scope.searchText + "&callback=JSON_CALLBACK";
+                    var url = "http://api.ap.org/v2/search/" + $scope.mediaType + "?apikey=" + apiKey + "&q=" + $scope.searchText + "&callback=JSON_CALLBACK";
                     var responsePromise = $http({ method: 'jsonp', url: url });
 
                     responsePromise.success(function (data, headers) {
@@ -34,6 +35,14 @@ var searchText = "";
 					retval = t.replace(eval(searchExpr),highlightedText);
                     console.log(searchExpr);
                     return retval;
+                }
+            }
+        });
+		
+		 myapp.filter('addApiKey', function () {
+            return function (t) {
+                if (t != null) {
+                    return t + "&apikey=" + apiKey;
                 }
             }
         });
