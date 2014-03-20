@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!--
+Author - Stephen Rogouski
+3/20/2014
+-->
+<html lang="en" ng-app="myapp">
+<head>
+	<link rel="stylesheet" href="styles.css">
+    <title>AP Content Search Example</title>
+</head>
+<body ng-app="myapp">
+    <div id="topNav">
+        <a href="home.html">Home</a>
+    </div>
+    <div id="main">
+        <h1 ng-controller="ContentApiCtrl">{{hellomessage}}</h1>
+        <p>An example of a photo search using the new API powered by AngularJS by Stephen Rogouski </p>
+        <div id="search" ng-controller="Search">
+
+            <form>
+                <input type="text" id="ksearch" name="ksearch" value="tesla" ng-model="searchText" />
+                <button ng-click="myData.doClick(item, $event)">Search Content</button>
+            </form>
+            <div id="results">
+                <table>
+                    <thead>
+                        <th colspan="2">{{myData.fromServer.totalResults}} results</th>
+                    </thead>
+                    <tr ng-repeat="entries in myData.fromServer.entries | limitTo:15">
+                        <td>
+                            <p ng-repeat="links in entries.contentLinks | filter:{rel: 'thumbnail'} | limitTo:1">
+                                <img src="{{links.href}}&apikey=honeybee" width="128" height="85" />
+                            </p>
+                        </td>
+                        <td colspan="2">
+                            <b class="title">{{entries.title}}</b>
+                            <p ng-bind-html="entries.contentxhtml | highlighter"></p>
+                        </td>
+                    </tr>
+                </table>
+				<div id="copyright">&copy; I forgot my name productions 2014 </div>
+            </div>
+        </div>
+    </div>
+    <div id="error"></div>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.2/angular.min.js"></script>
+	<script src="angular-sanitize.js"></script>
+	<script src="app.js"></script>
+</body>
+</html>
