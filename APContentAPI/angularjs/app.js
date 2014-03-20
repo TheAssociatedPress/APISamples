@@ -12,8 +12,7 @@ var searchText = "";
                 //Search
                 function doSearch() {
                     searchText = $scope.searchText;
-                    var url = "http://api.ap.org/v2/search/" + $scope.mediaType + "?apikey=honeybee&q=" + $scope.searchText + "&callback=JSON_CALLBACK";
-                    //?apikey=honeybee&q=test
+                    var url = "http://api.ap.org/v2/search/" + $scope.mediaType + "?apikey=your_api_key&q=" + $scope.searchText + "&callback=JSON_CALLBACK";
                     var responsePromise = $http({ method: 'jsonp', url: url });
 
                     responsePromise.success(function (data, headers) {
@@ -32,7 +31,6 @@ var searchText = "";
                 if (t != null) {
 		            var highlightedText = "<b class='highlighted'>" + searchText + "</b>";
 					var searchExpr = "/" + searchText + "/g";
-                    //var retval = t.replace("<p>", "").replace("</p>", "");
 					retval = t.replace(eval(searchExpr),highlightedText);
                     console.log(searchExpr);
                     return retval;

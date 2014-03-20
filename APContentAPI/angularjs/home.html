@@ -29,7 +29,7 @@ Author - Stephen Rogouski
                     <tr ng-repeat="entries in myData.fromServer.entries | limitTo:15">
                         <td>
                             <p ng-repeat="links in entries.contentLinks | filter:{rel: 'thumbnail'} | limitTo:1">
-                                <img src="{{links.href}}&apikey=honeybee" width="128" height="85" />
+                                <img src="{{links.href}}&apikey=your_api_key" width="128" height="85" />
                             </p>
                         </td>
                         <td colspan="2">
