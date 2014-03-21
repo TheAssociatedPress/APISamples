@@ -18,10 +18,20 @@ var apiKey = "your_api_key";
 
                     responsePromise.success(function (data, headers) {
                         $scope.myData.fromServer = data;
-                        //console.log($location);
+                        console.log(data);
+						if($scope.myData.fromServer.totalResults == 0)
+						{
+							document.getElementById("noResults").style.display = "block";
+							document.getElementById("resultsTable").style.display = "none";
+						}
+						else
+						{
+							document.getElementById("noResults").style.display = "none";
+							document.getElementById("resultsTable").style.display = "block";
+						}
                     });
                     responsePromise.error(function (data, status, headers, config) {
-                        console.log(status);
+                        //console.log(status);
                         alert("AJAX failed!");
                     });
                 }
@@ -33,7 +43,7 @@ var apiKey = "your_api_key";
 		            var highlightedText = "<b class='highlighted'>" + searchText + "</b>";
 					var searchExpr = "/" + searchText + "/g";
 					retval = t.replace(eval(searchExpr),highlightedText);
-                    console.log(searchExpr);
+                    //console.log(searchExpr);
                     return retval;
                 }
             }

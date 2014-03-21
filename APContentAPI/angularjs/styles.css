@@ -5,7 +5,7 @@
         }
 
         body {
-            font: 75% Helvetica" Georgia, Sans-Serif;
+            font: 75% "Helvetica" , Sans-Serif;
             line-height: 1.88889;
             color: #222;
             background: #fff no-repeat bottom right;
@@ -14,12 +14,15 @@
         }
 
         h1, h2, h3, h4, h5 {
-            font-family: "Helvetica" Georgia, Sans-Serif;
+            font-family: "Helvetica", Sans-Serif;
 			font-size:30px;
+			margin-bottom:0;
+			padding-bottom:0;
         }
 
         p {
-			font-family: "Helvetica" Georgia, Sans-Serif;
+			font-size:13px;
+			font-family: "Helvetica", Sans-Serif;
             margin-top: 0;
             text-align: justify;
 			margin-bottom:0;
@@ -33,7 +36,7 @@
         table {
             border-spacing: 4px;
             border-collapse: separate;
-			font-family: "Helvetica" Georgia, Sans-Serif;
+			font-family: "Helvetica", Sans-Serif;
         }
 
         thead {
@@ -58,7 +61,7 @@
         }
 
         h3 {
-            font: italic normal 1.4em georgia, sans-serif;
+            font: italic normal 1.4em, sans-serif;
             letter-spacing: 1px;
             margin-bottom: 0;
             color: #7D775C;
@@ -114,4 +117,11 @@
 		font-size:19px;
 		margin:0;
 		padding:0;
+		}
+		#noResults
+		{
+			margin:75px 0 125px 0;
+			font-size:25px;
+			text-align:center;
+			display:none;
 		}
