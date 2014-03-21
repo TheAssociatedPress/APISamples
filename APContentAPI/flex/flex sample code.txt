@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+			styleName="appStyle"
+				horizontalAlign="left"
+				verticalGap="15" 
+				horizontalGap="15" creationComplete="addListenerToControls()">
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			
+			[Bindable]
+			private var photoFeed:ArrayCollection;
+			
+			// add a event listener to textInput control using the Event Listeners
+			private function addListenerToControls():void {
+				searchTerms.addEventListener(FlexEvent.ENTER,requestPhotos);
+			}
+			private function findObjectByAttribute(arrayCollection:ArrayCollection,attributeName:String, value:String):Object{
+				for each (var object:Object in arrayCollection) {
+					if(object[attributeName]==value){
+						return object;
+					}
+				}
+				return null;
+				}
+			// Request photos based on keyword 
+			private function requestPhotos(event:Event):void {
+				// if the apiService is still loading we cancel to prevent errors
+				// then we call again.
+				apiService.cancel();
+				var params:Object = new Object();
+				params.apikey='apikey'; // API Key
+				params.q = searchTerms.text;
+			
+				apiService.send(params);
+				
+			}
+			// convert the result into a Array Collection
+			private function photoHandler(event:ResultEvent):void {
+			
+				var _photoFeed:ArrayCollection = event.result.feed.entry as ArrayCollection;
+				photoFeed = new ArrayCollection();
+				for each(var item:Object in _photoFeed)
+				{
+					var objThumbnail:Object = findObjectByAttribute(item.link, "rel", "thumbnail");
+					var objPreview:Object = findObjectByAttribute(item.link, "rel", "preview");
+					var resultInfo:Object = {"title":item.title,"content":item.content.div.p.p,"thumbnail":String(objThumbnail.href)+"&apikey=apikey","preview":String(objPreview.href)+"&apikey=apikey"}  // API Key
+					photoFeed.addItem(resultInfo);
+				}
+			}
+		    // Error handler
+			private function photoFaultHandler(event:FaultEvent):void {
+				Alert.show("Impossible to load or reach photos from services","Error");
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Style>
+		.appStyle { 
+		color: white;
+		backgroundColor:black;
+		}
+		.txtInput{
+			color:black;
+		}
+		.tile{
+			backgroundColor:black;
+			
+		}
+		.title{
+			fontSize:9px;
+			fontWeight:bold;
+		}
+	</mx:Style>
+
+	<mx:HTTPService id="apiService" showBusyCursor="true"
+					url="http://api.ap.org/v2/search/photo"
+					result="photoHandler(event)" fault="photoFaultHandler(event)" />
+	
+	<mx:HBox>
+		<mx:Label text="search terms:" />
+		<mx:TextInput id="searchTerms"  styleName="txtInput"/>
+		<mx:Button label="Search" styleName="txtInput"
+				   click="requestPhotos(event)" />
+	</mx:HBox>
+	
+	<mx:TileList width="100%" height="100%"  rowCount="1" columnCount="1"  rowHeight="150" 
+				 direction="horizontal" borderVisible="false"   contentBackgroundColor="black" rollOverColor="black" selectionColor="black"	 styleName="tile"
+				 dataProvider="{photoFeed}"
+				 itemRenderer="APIPhotoThumbnail">
+	</mx:TileList>
+	
+</mx:Application>
+
+//APIPhotoThumbnail
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
+		  height="150" width="100%"
+		 horizontalAlign="left"
+		 paddingBottom="5" paddingLeft="5" paddingRight="5" paddingTop="5">
+	<mx:Style>
+		global {
+			modalTransparencyBlur: 0;
+			modalTransparency: 0.9;
+			modalTransparencyColor: black;
+			modalTransparencyDuration: 500;
+		}
+	</mx:Style>
+	<mx:Script>
+		<![CDATA[
+			[Bindable] public var isOurMouse:Boolean = false;
+			import mx.controls.Image;
+			import mx.managers.PopUpManager;
+			
+			
+			
+			private function popIt(src:String):void {
+				var img:Image = new Image();
+				img.addEventListener(MouseEvent.CLICK, img_click);
+				img.addEventListener(Event.COMPLETE, img_complete);
+				img.load(src);
+				img.toolTip = img.source.toString();
+			
+				PopUpManager.addPopUp(img, this, true);
+			}
+			
+			private function img_complete(evt:Event):void {
+				var img:Image = evt.currentTarget as Image;
+				img.width = img.contentWidth;
+				img.height = img.contentHeight;
+				
+				img.x = this.stage.stageWidth / 2 - img.width / 2;
+				img.y = this.stage.stageHeight / 2 - img.height / 2; 
+				PopUpManager.centerPopUp(img);
+			}
+			
+			private function img_click(evt:MouseEvent):void {
+				var img:Image = evt.currentTarget as Image;
+				PopUpManager.removePopUp(img);
+			}
+		]]>
+	</mx:Script>
+	<mx:HBox>
+		
+		<mx:VBox>
+			<mx:Image 
+				width="75" height="75" 
+				source="@{data.thumbnail}" click="popIt(data.preview);" 
+				/> 
+			
+			<mx:Text width="150" styleName="title"  textAlign="left" text="{data.title}" />
+		</mx:VBox>
+		
+		<mx:Text  width="700"   textAlign="left" text="{data.content}" />
+	</mx:HBox>
+	
+	
+</mx:VBox>
