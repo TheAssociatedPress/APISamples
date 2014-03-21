@@ -14,15 +14,14 @@ Author - Stephen Rogouski
     </div>
     <div id="main">
         <h1 ng-controller="ContentApiCtrl">{{hellomessage}}</h1>
-        <p>An example of a photo search using the new API powered by AngularJS by Stephen Rogouski </p>
+        <p>An example of a photo search using the new API powered by AngularJS by Stephen Rogouski <br/><br/></p>
         <div id="search" ng-controller="Search">
-
             <form>
                 <input type="text" id="ksearch" name="ksearch" value="tesla" ng-model="searchText" />
                 <button ng-click="myData.doClick(item, $event)">Search Content</button>
             </form>
             <div id="results">
-                <table>
+                <table id="resultsTable">
                     <thead>
                         <th colspan="2">{{myData.fromServer.totalResults}} results</th>
                     </thead>
@@ -33,11 +32,12 @@ Author - Stephen Rogouski
                             </p>
                         </td>
                         <td colspan="2">
-                            <b class="title">{{entries.title}}</b>
+                            <b class="title">{{entries.title}}</b><span ng-repeat="links in entries.contentLinks | filter:{rel: 'preview'} | limitTo:1">&nbsp;(<a href="{{links.href | addApiKey}}">see larger image</a>)</span>
                             <p ng-bind-html="entries.contentxhtml | highlighter"></p>
                         </td>
                     </tr>
                 </table>
+				<div id="noResults">Search Has Returned Zero Results. Please try another search term.</span></div>
 				<div id="copyright">&copy; I forgot my name productions 2014 </div>
             </div>
         </div>
