@@ -25,9 +25,8 @@ namespace po = boost::program_options;
 
 int main(int argc, char* argv[])
 {
-	//utility::string_t api_key(U("** Your API Key here **"));
-	utility::string_t api_key(U("honeybee"));
-
+	utility::string_t api_key(U("** Your API Key here **"));
+	
 	// Declare the supported options.
 	po::options_description desc("Allowed options");
 	desc.add_options()
