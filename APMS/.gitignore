@@ -1,0 +1,8 @@
+config.py
+__pycache__
+.ipynb_checkpoints
+media
+*.pyc
+*.egg-info
+build
+dist

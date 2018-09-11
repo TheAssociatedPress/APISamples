@@ -1,0 +1,5 @@
+{
+	"meta":
+		{ "features": [ {"name" : "ap"}]},
+	"document" : {{ payload.document|jsonify}}
+}

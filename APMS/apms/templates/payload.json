@@ -1,0 +1,3 @@
+{
+	"document" : {{ payload.document|jsonify}}
+}
