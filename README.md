@@ -7,7 +7,7 @@ You will need to [sign up for an API key](http://developer.ap.org/) before you c
 
 #AP Content API
 
-The full developer's guide can be found [here](http://developer.ap.org/files/AP_Content_API_Developer_Guide.pdf).
+The full developer's guide can be found [here](https://developer.ap.org/ap-metadata-services/AP_Metadata_Services_Developer_Guide.pdf).
 
 ##Basic Search
 
