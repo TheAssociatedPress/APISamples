@@ -11,6 +11,8 @@
 @prefix dbprop: <http://dbpedia.org/property/> .  
 @prefix dbpedia-owl: <http://dbpedia.org/ontology/> .  
 
+------
+
 skos:Concept  
   a  owl:Class ;  
   rdfs:subClassOf pub:Terminology_Management ;  
