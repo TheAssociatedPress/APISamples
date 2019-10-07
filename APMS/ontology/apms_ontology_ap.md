@@ -162,6 +162,12 @@ ap:eventType
   rdfs:label "event type"@en ;  
   rdfs:domain ap:Event ;  
   rdfs:comment "property representing a relationship between an event and its generic type (e.g., Entertainment event, Sports event)."@en .  
+
+ap:eventTypeLabel  
+  a owl:DatatypeProperty ;  
+  rdfs:label "event type (label)"@en ;  
+  rdfs:domain ap:Event ;  
+  rdfs:comment "property representing a relationship between an event and its generic type (e.g., Entertainment event, Sports event)."@en . 
   
 ap:location  
   a owl:ObjectProperty ;  
@@ -175,6 +181,7 @@ ap:associatedEventOf
   rdfs:label "associated event of"@en ;  
   rdfs:domain ap:Event ;  
   rdfs:range ap:Person ;  
+  owl:inverseOf ap:associatedEvent  ;  
   rdfs:comment "property representing a relationship between a person and a current event, typically, the person’s participation in or some significant contribution to the event. See ap:associatedEvent for the reciprocal property"@en .   
 
 ap:location  
@@ -189,6 +196,12 @@ ap:organizationType
   rdfs:label "organization type"@en ;  
   rdfs:domain ap:Organization ;  
   rdfs:comment "property representing a relationship between an organization and its generic type (e.g. Sports team, Sports league)."@en .  
+
+ap:organizationTypeLabel  
+  a owl:DatatypeProperty ;  
+  rdfs:label "organization type (label)"@en ;  
+  rdfs:domain ap:Organization ;  
+  rdfs:comment "property representing a relationship between an organization and its generic type (e.g. Sports team, Sports league)."@en . 
   
  ap:competitiveLevel  
   a owl:DatatypeProperty ;  
@@ -207,6 +220,12 @@ ap:locationType
   a owl:DatatypeProperty ;  
   rdfs:label "location type"@en ;  
   rdfs:domain ap:Geography ;  
+  rdfs:comment "property used to indicate the generic type of a geographic entity, such as City, Province, Continent, etc."@en .  
+  
+ap:locationTypeLabel  
+  a owl:DatatypeProperty ;  
+  rdfs:label "location type (label)"@en ;  
+  rdfs:domain ap:Geography ;  
   rdfs:comment "property used to indicate the generic type of a geographic entity, such as City, Province, Continent, etc."@en .    
 
 ap:dependencyOf  
@@ -214,6 +233,7 @@ ap:dependencyOf
   rdfs:label "dependency of"@en ;  
   rdfs:domain ap:Geography ;  
   rdfs:range ap:Geography ;  
+  owl:inverseOf ap:hasDependency  ;  
   rdfs:comment "property used to indicate a political dependency between one geographic entity and another. See ap:hasDependency for reciprocal relationship."@en .  
 
 ap:hasDependency  
@@ -236,11 +256,26 @@ ap:personType
   rdfs:domain <http://cv.ap.org/ns#Person>  ;  
   rdfs:comment "property representing a relationship between a named person and their generic type (e.g., Artist, Athlete)."@en .  
   
+ap:personTypeLabel  
+  a owl:DatatypeProperty ;  
+  rdfs:label "person type (label)"@en ;  
+  rdfs:domain <http://cv.ap.org/ns#Person>  ;  
+  rdfs:comment "property representing a relationship between a named person and their generic type (e.g., Artist, Athlete)."@en .
+  
 ap:associatedCountry  
   a owl:ObjectProperty ;  
   rdfs:label "associated country"@en ;  
   rdfs:domain <http://cv.ap.org/ns#Person> ;  
   rdfs:range <http://cv.ap.org/ns#Geography>  ;  
+  owl:inverseOf ap:associatedCountryOf  ;  
+  rdfs:comment "property representing a relationship between a person and a related country."@en .  
+
+ap:associatedCountryOf  
+  a owl:ObjectProperty ;  
+  rdfs:label "associated country of"@en ;  
+  rdfs:domain <http://cv.ap.org/ns#Geography> ;  
+  rdfs:range <http://cv.ap.org/ns#Person>  ;  
+  owl:inverseOf ap:associatedCountry  ;  
   rdfs:comment "property representing a relationship between a person and a related country."@en .  
 
 ap:associatedState  
@@ -248,8 +283,17 @@ ap:associatedState
   rdfs:label "associated state"@en ;  
   rdfs:domain <http://cv.ap.org/ns#Person> ;  
   rdfs:range <http://cv.ap.org/ns#USState>  ;  
+  owl:inverseOf ap:associatedStateOf  ;  
   rdfs:comment "property representing a relationship between a person and a related U.S. state."@en .  
 
+ap:associatedStateOf  
+  a owl:ObjectProperty ;  
+  rdfs:label "associated state of"@en ;  
+  rdfs:domain <http://cv.ap.org/ns#USState> ;  
+  rdfs:range <http://cv.ap.org/ns#Person>  ;  
+  owl:inverseOf ap:associatedCompany  ;  
+  rdfs:comment "property representing a relationship between a person and a related U.S. state."@en .  
+  
 ap:hometown  
   a owl:DatatypeProperty ;  
   rdfs:label "hometown"@en ;  
@@ -268,6 +312,7 @@ ap:associatedEvent
   rdfs:label "associated event"@en ;  
   rdfs:domain <http://cv.ap.org/ns#Person> ;  
   rdfs:range <http://cv.ap.org/ns#Event>  ;  
+  owl:inverseOf ap:associatedEventOf  ;  
   rdfs:comment "property representing a relationship between a person and a current event, typically, the person’s participation in or some significant contribution to the event."@en .  
   
 ap:associatedCompany  
@@ -275,6 +320,7 @@ ap:associatedCompany
   rdfs:label "associated company"@en ;  
   rdfs:domain <http://cv.ap.org/ns#Person> ;  
   rdfs:range <http://cv.ap.org/ns#Company>  ;  
+  owl:inverseOf ap:associatedCompanyOf  ;  
   rdfs:comment "property representing a relationship between a person and a company, typically, the person’s role in the operation of the company or corporate entity."@en .  
 
 ap:sport  
@@ -291,28 +337,28 @@ ap:sport
   rdfs:comment "property used to describe an athlete's uniform number."@en .  
    
 ap:significantOther  
-  a owl:ObjectProperty ;  
+  a owl:SymmetricProperty ;  
   rdfs:label "significant other"@en ;  
   rdfs:domain <http://cv.ap.org/ns#Person> ;  
   rdfs:range <http://cv.ap.org/ns#Person> ;  
   rdfs:comment "property representing a relationship between a person and his or her spouse or romantic partner"@en .  
   
 ap:formerSignificantOther  
-  a owl:ObjectProperty ;  
+  a owl:SymmetricProperty ;  
   rdfs:label "former significant other"@en ;  
   rdfs:domain <http://cv.ap.org/ns#Person> ;  
   rdfs:range <http://cv.ap.org/ns#Person> ;  
   rdfs:comment "property representing a relationship between a person and his or her former spouse or romantic partner"@en .  
   
 ap:relative  
-  a owl:ObjectProperty ;  
+  a owl:SymmetricProperty ;  
   rdfs:label "relative"@en ;  
   rdfs:domain <http://cv.ap.org/ns#Person> ;  
   rdfs:range <http://cv.ap.org/ns#Person> ;  
   rdfs:comment "property representing a relationship between a person and a member of his or her extended family, including grandparents, uncles, aunts, cousins, nephews or nieces."@en .	  
   					
 ap:siblingOf  
-  a owl:ObjectProperty ;  
+  a owl:SymmetricProperty ;  
   rdfs:label "sibling of"@en ;  
   rdfs:domain <http://cv.ap.org/ns#Person> ;  
   rdfs:range <http://cv.ap.org/ns#Person> ;  
@@ -323,6 +369,7 @@ ap:hasParent
   rdfs:label "has parent"@en ;  
   rdfs:domain <http://cv.ap.org/ns#Person> ;  
   rdfs:range <http://cv.ap.org/ns#Person> ;  
+  owl:inverseOf ap:hasChild  ;  
   rdfs:comment "property representing a relationship between a person and his or her parent."@en .  
   
 ap:hasChild  
@@ -330,6 +377,7 @@ ap:hasChild
   rdfs:label "has child"@en ;  
   rdfs:domain <http://cv.ap.org/ns#Person> ;  
   rdfs:range <http://cv.ap.org/ns#Person> ;  
+  owl:inverseOf ap:hasParent  ;  
   rdfs:comment "property representing a relationship between a person and his or her child."@en .  
 
 ap:associatedCompanyOf  
@@ -337,6 +385,7 @@ ap:associatedCompanyOf
   rdfs:label "associated company of"@en ;  
   rdfs:domain <http://cv.ap.org/ns#Company> ;  
   rdfs:range <http://cv.ap.org/ns#Person>  ;  
+  owl:inverseOf ap:associatedCompany  ;  
   rdfs:comment "property representing a relationship between a person and a company, typically, the company's associated members or governing figures."@en .  
   
 ap:industry  
@@ -344,7 +393,16 @@ ap:industry
   rdfs:label "industry"@en ;  
   rdfs:domain <http://cv.ap.org/ns#Company> ;  
   rdfs:range <http://cv.ap.org/ns#Industry> ;  
+  owl:inverseOf ap:industryOf  ;  
   rdfs:comment "property representing a relationship between a company and a related Industry subject term."@en .  
+
+ap:industryOf  
+  a owl:ObjectProperty ;  
+  rdfs:label "industry of"@en ;  
+  rdfs:domain <http://cv.ap.org/ns#Industry> ;  
+  rdfs:range <http://cv.ap.org/ns#Company> ;  
+  owl:inverseOf ap:industry  ;  
+  rdfs:comment "property representing a relationship between a company and a related Industry subject term."@en .
 
 ap:instrument  
   a owl:DatatypeProperty ;  
