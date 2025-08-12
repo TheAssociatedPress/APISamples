@@ -1,43 +1,37 @@
-APISamples
-==========
+# APISamples
 
-This is a repository of code samples for the Associated Press APIs.  
+This is a repository of code samples for the Associated Press APIs. For more information about the APIs, visit [AP Developer portal](https://developer.ap.org).
 
-You will need to [sign up for an API key](http://developer.ap.org/) before you can use any of the code in this repository.
+## AP Media API
 
-#AP Content API
+Contact [AP Customer Support](https://customerzone.ap.org/s/contactsupport) to sign up for an API key required to use the code in the MediaAPI repository.
 
-The full developer's guide can be found [here](http://developer.ap.org/files/AP_Content_API_Developer_Guide.pdf).
+For the complete documentation of the API methods, refer to the [AP Media API developer's guide](https://api.ap.org/media/v/docs/).
 
-##Basic Search
+### Concepts demonstrated in the code samples
 
-Basic search can be achieved using the following HTTP GET call:
+- Issuing a search request
+- Transitioning from /search to /feed
+- Issuing a feed request
+- Saving a search or feed response payload
+- Long polling on a feed request
+- Downloading and saving renditions
+- Following redirects
+- Downloading priced renditions (disabled by default)
+- Fetching associations
+- Processing associations: saving metadata, fetching and saving renditions
+- Basic error handling
 
-```
-http://api.ap.org/v2/search/{mediatype}?apikey={apikey}&q={searchterms}
-```
+### Concepts NOT demonstrated
 
-`mediatype` can be *photo*, *video*, or *graphic* depending on the media type you are looking for.  `apikey` is your API key and `q` is your search terms.  As an example:
+- Handling quota violations
+- Complete handling of pricing exceptions
+- Caching concepts with ETags (some mentions in comments)
+- Anything with meta {} block; for example, pricing and products
+- /account/* calls
 
-```
-http://api.ap.org/v2/search/photo?apikey=your_api_key&q=computer
-```
+## AP Metadata Services (APMS) APIs
 
-This returns photos about the search term "computer."
+Contact [AP Customer Support](https://customerzone.ap.org/s/contactsupport) to sign up for an API key required to use the code in the APMS repository.
 
-###Payload Format Support
-
-The API returns XML (Atom 1.0) by default, but it can return JSON by applying `accept:application/json` in the header and JSONP by passing a `callback` HTTP GET parameter.  Here is an example snippet in Python requesting for a JSON payload:
-
-```python
-import requests
-
-apikey = 'my_api_key'
-keyword_search = 'star wars'
-
-payload = requests.get('http://api.ap.org/v2/search/photo',
-                       headers={'accept': 'application/json'},
-                       params={'apikey': apikey, 'q': keyword_search})
-```
-
-
+For the complete documentation of the API methods, refer to the [APMS developer's guide](https://developer.ap.org/ap-metadata-services/AP_Metadata_Services_Developer_Guide.pdf).
